@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green & Yellow Modern UI</title>
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <div class="overlay" id="overlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">LOGO</div>
+        </div>
+        <nav>
+            <ul class="sidebar-menu">
+                <li><a href="#"><i class="ph ph-house"></i> Início</a></li>
+                <li><a href="#"><i class="ph ph-magnifying-glass"></i> Pesquisa</a></li>
+                <li><a href="#"><i class="ph ph-squares-four"></i> Categorias</a></li>
+                <li><a href="#"><i class="ph ph-fire"></i> Em Alta</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="btn btn-login">Login</button>
+            <button class="btn btn-register">Cadastrar</button>
+        </div>
+    </aside>
+
+    <header>
+        <div class="header-left">
+            <div class="menu-trigger" id="menuBtn">
+                <i class="ph ph-list"></i>
+            </div>
+            <div class="logo">LOGO</div>
+        </div>
+
+        <div class="search-container">
+            <i class="ph ph-magnifying-glass search-icon-inside"></i>
+            
+            <input type="text" id="searchInput" class="search-input" placeholder="O que você procura hoje?" autocomplete="off">
+            
+            <div id="searchResultsBox" class="search-results-box"></div>
+        </div>
+
+        <div class="header-auth">
+            <a href="#" class="btn btn-login">Login</a>
+            <a href="#" class="btn btn-register">Cadastrar</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="produtos-grid">
+            
+            {% for produto in produtos %}
+            <div class="produto-card">
+    
+                <a href="{% url 'produto_detail' produto.id %}" style="text-decoration: none; color: inherit;">
+                    
+                    <div class="card-img-container">
+                        {% if produto.imagem_capa %}
+                            <img src="{{ produto.imagem_capa.url }}" alt="{{ produto.nome }}">
+                        {% else %}
+                            <div class="no-photo">Sem Foto</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="card-info">
+                        <h3 title="{{ produto.nome }}">{{ produto.nome }}</h3>
+                        <div class="preco-container">
+                            <span class="preco-total">R$ {{ produto.preco }}</span>
+                            <span class="preco-parcelado">10x de R$ {{ produto.preco_10x|floatformat:2 }}</span>
+                        </div>
+                    </div>
+                
+                </a> <div class="card-actions">
+                    <button class="btn-comprar">Comprar Agora</button>
+                    <button class="btn-carrinho">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-icons">
+                <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+                <a href="#" aria-label="TikTok"><i class="ph ph-tiktok-logo"></i></a>
+                <a href="#" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+            </div>
+
+            <div class="legal-info">
+                <p>&copy; 2024 Sua Empresa. Todos os direitos reservados.</p>
+                <div class="legal-links">
+                    <a href="#">Termos de Uso</a> | 
+                    <a href="#">Política de Privacidade</a> | 
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+
+            <div class="reclame-aqui">
+                <i class="ph ph-smiley-sad"></i>
+                <span>Reclame Aqui</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

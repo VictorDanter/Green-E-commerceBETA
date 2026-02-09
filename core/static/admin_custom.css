@@ -1,0 +1,88 @@
+/* =========================================
+        Configurações Gerais e Cores
+   ========================================= */
+:root {
+    --primary-green: #2E7D32;
+    --accent-yellow: #FDD835;
+    --border-radius: 50px;
+}
+
+/* ====================================
+            Tela de Login
+   ====================================*/
+/* Fundo da página de Login */
+body.login {
+    background-color: #E8F5E9 !important;
+}
+
+/* O Cartão de Login (Quadrado Arredondado) */
+.login-box .card {
+    border-radius: 30px !important;
+    border: none !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+}
+
+.login-box .card-header {
+    background-color: var(--primary-green) !important;
+    border-radius: 30px 30px 0 0 !important;
+    color: white !important;
+    text-align: center;
+}
+
+/* Botão de Entrar na tela de login */
+.login-box button[type="submit"] {
+    border-radius: var(--border-radius) !important;
+    background-color: var(--primary-green) !important;
+    border-color: var(--primary-green) !important;
+    transition: 0.3s;
+}
+
+.login-box button[type="submit"]:hover {
+    background-color: var(--accent-yellow) !important;
+    color: #333 !important;
+    border-color: var(--accent-yellow) !important;
+}
+
+/* =========================================
+    Painel Administrativo (Sidebar e Topo)
+   ========================================= */
+
+.main-sidebar {
+    background-color: var(--primary-green) !important;
+}
+
+/* Logo da marca */
+.brand-link {
+    background-color: var(--primary-green) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+input.form-control {
+    border-radius: var(--border-radius) !important;
+}
+
+.btn {
+    border-radius: var(--border-radius) !important;
+}
+
+.btn-success, .btn-primary {
+    background-color: var(--primary-green) !important;
+    border-color: var(--primary-green) !important;
+}
+
+.btn-group > .btn:first-child {
+    border-top-left-radius: var(--border-radius) !important;
+    border-bottom-left-radius: var(--border-radius) !important;
+}
+.btn-group > .btn:last-child {
+    border-top-right-radius: var(--border-radius) !important;
+    border-bottom-right-radius: var(--border-radius) !important;
+}
+
+.nav-sidebar .nav-item .nav-link {
+    padding-left: 16px !important;
+}
+
+.nav-sidebar .nav-link p {
+    margin-left: 5px !important;
+}

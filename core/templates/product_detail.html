@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ produto.nome }} | Detalhes</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <div class="overlay" id="overlay"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header"><div class="logo">LOGO</div></div>
+        <nav><ul class="sidebar-menu">
+            <li><a href="{% url 'home' %}"><i class="ph ph-house"></i> Início</a></li>
+            <li><a href="#"><i class="ph ph-magnifying-glass"></i> Pesquisa</a></li>
+            <li><a href="#"><i class="ph ph-squares-four"></i> Categorias</a></li>
+        </ul></nav>
+    </aside>
+
+    <header>
+        <div class="header-left">
+            <div class="menu-trigger" id="menuBtn"><i class="ph ph-list"></i></div>
+            <div class="logo">LOGO</div>
+        </div>
+         <div class="search-container">
+            <i class="ph ph-magnifying-glass search-icon-inside"></i>
+            
+            <input type="text" id="searchInput" class="search-input" placeholder="O que você procura hoje?" autocomplete="off">
+            
+            <div id="searchResultsBox" class="search-results-box"></div>
+        </div>
+        <div class="header-auth">
+            <a href="#" class="btn btn-login">Login</a>
+            <a href="#" class="btn btn-register">Cadastrar</a>
+        </div>
+    </header>
+
+    <main class="produto-detail-main">
+        <div class="produto-container">
+            
+            <div class="produto-gallery">
+                <div class="main-image-container">
+                    <button class="nav-arrow prev" onclick="mudarFoto(-1)"><i class="ph ph-caret-left"></i></button>
+                    
+                    <img id="mainImage" src="{{ produto.imagem_capa.url }}" alt="{{ produto.nome }}">
+                    
+                    <button class="nav-arrow next" onclick="mudarFoto(1)"><i class="ph ph-caret-right"></i></button>
+                </div>
+
+                <div class="thumbnails">
+                    <img src="{{ produto.imagem_capa.url }}" class="thumb active" onclick="selecionarFoto(this)">
+                    
+                    {% for foto in produto.imagens_extras.all %}
+                        <img src="{{ foto.imagem.url }}" class="thumb" onclick="selecionarFoto(this)">
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="produto-info">
+                <h2>{{ produto.nome }}</h2>
+                
+                <div class="avaliacoes">
+                    <i class="ph-fill ph-star"></i>
+                    <i class="ph-fill ph-star"></i>
+                    <i class="ph-fill ph-star"></i>
+                    <i class="ph-fill ph-star"></i>
+                    <i class="ph ph-star"></i> <span>(12 avaliações)</span>
+                </div>
+
+                <div class="preco-box">
+                    <span class="preco-destaque">R$ {{ produto.preco }}</span>
+                    <span class="preco-parcela">ou 10x de R$ {{ produto.preco_10x|floatformat:2 }} sem juros</span>
+                </div>
+
+                <div class="qtd-selector">
+                    <label>Quantidade:</label>
+                    <input type="number" value="1" min="1" max="99">
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-comprar-lg">Comprar Agora</button>
+                    <button class="btn-carrinho-lg">Adicionar ao Carrinho</button>
+                </div>
+
+                <div class="descricao-box">
+                    <h3>Sobre o produto</h3>
+                    <div class="texto-descricao collapsed" id="descTexto">
+                        {{ produto.descricao|linebreaks }}
+                    </div>
+                    <button class="btn-ver-mais" id="btnVerMais" onclick="toggleDescricao()">Ver mais</button>
+                </div>
+
+                <div class="comentarios-area">
+                    <h3>Perguntas e Comentários</h3>
+                    {% if user.is_authenticated %}
+                        <textarea placeholder="Escreva sua dúvida ou avaliação..."></textarea>
+                        <button class="btn-enviar-coment">Enviar Comentário</button>
+                    {% else %}
+                        <div class="login-alert">
+                            <i class="ph ph-lock-key"></i>
+                            <p>Faça <a href="/admin">login</a> para comentar.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Sua Loja - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="{% static 'script.js' %}"></script>
+    
+    <script>
+        // Lógica da Galeria
+        const mainImg = document.getElementById('mainImage');
+        const thumbs = document.querySelectorAll('.thumb');
+        let currentIndex = 0;
+
+        function selecionarFoto(elementoImg) {
+            mainImg.src = elementoImg.src;
+            
+            thumbs.forEach(t => t.classList.remove('active'));
+            elementoImg.classList.add('active');
+
+            currentIndex = Array.from(thumbs).indexOf(elementoImg);
+        }
+
+        function mudarFoto(direcao) {
+            currentIndex += direcao;
+            if (currentIndex >= thumbs.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = thumbs.length - 1;
+            thumbs[currentIndex].click();
+        }
+
+        // Lógica da Descrição (Ver Mais)
+        function toggleDescricao() {
+            const texto = document.getElementById('descTexto');
+            const btn = document.getElementById('btnVerMais');
+            
+            if (texto.classList.contains('collapsed')) {
+                texto.classList.remove('collapsed');
+                btn.innerText = "Ver menos";
+            } else {
+                texto.classList.add('collapsed');
+                btn.innerText = "Ver mais";
+            }
+        }
+    </script>
+</body>
+</html>
