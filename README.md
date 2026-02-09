@@ -53,9 +53,9 @@ Eu não queria entregar aquele admin azul padrão do Django. Utilizei a bibliote
 
 Fique à vontade para clonar, testar e fuçar no código!
 
-## 1. Instale o que precisa
+## 1. Instale
 `pip install -r requirements.txt`
-## 2. Prepare o Banco de Dados
+## 2. Preparo do Banco de Dados
 `python manage.py makemigrations`
 `python manage.py migrate`
 ## 3. Crie seu usuário Admin para acessar o painel e cadastrar os produtos:
