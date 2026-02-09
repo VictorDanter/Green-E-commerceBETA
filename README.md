@@ -48,6 +48,12 @@ Eu não queria entregar aquele admin azul padrão do Django. Utilizei a bibliote
     * `django-jazzmin`: Para deixar o admin bonitão.
 
 ---
+## 📸 Visualização
+
+<img width="1917" height="848" alt="image" src="https://github.com/user-attachments/assets/54f5e158-f3be-4406-847c-6334b67a5bc8" />
+<img width="1171" height="856" alt="image" src="https://github.com/user-attachments/assets/7e261e4f-631e-44db-82dd-4a2c4ddf7d1e" />
+
+
 
 ## ⚙️ Quer rodar na sua máquina?
 
